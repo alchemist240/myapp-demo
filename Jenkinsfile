@@ -9,17 +9,17 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-    steps {
-        bat 'docker build -t myapp-demo:latest .'
-    }
-}
+            steps {
+                sh 'docker build -t myapp-demo:latest .'
+            }
+        }
 
-stage('Run Docker Container') {
-    steps {
-        bat 'docker rm -f myapp-demo || echo Container not present'
-        bat 'docker run -d -p 5000:80 --name myapp-demo myapp-demo:latest'
-    }
-}
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker rm -f myapp-demo || true'
+                sh 'docker run -d -p 5000:80 --name myapp-demo myapp-demo:latest'
+            }
+        }
     }
 
     post {
